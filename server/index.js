@@ -258,3 +258,4 @@ async function run() {
 run();
 
 module.exports = app;
+module.exports.handler = require("serverless-http")(app);
