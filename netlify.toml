@@ -1,11 +1,11 @@
 [build]
   base = "client"
-  publish = "client/dist"
+  publish = "dist"
   command = "npm install && npm run build"
 
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "VITE_FIREBASE_API_KEY,VITE_FIREBASE_AUTH_DOMAIN,VITE_FIREBASE_PROJECT_ID,VITE_FIREBASE_STORAGE_BUCKET,VITE_FIREBASE_MESSAGING_SENDER_ID,VITE_FIREBASE_APP_ID,VITE_IMGBB_API_KEY,VITE_STRIPE_PUBLISHABLE_KEY,VITE_API_URL"
-  SECRETS_SCAN_OMIT_PATHS = "client/dist/**"
+  SECRETS_SCAN_OMIT_PATHS = "dist/**"
 
 [[redirects]]
   from = "/*"
