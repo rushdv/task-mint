@@ -445,10 +445,7 @@ async function run() {
 
     app.get("/", (req, res) => res.send("TaskMint Server Running"));
 
-    // Start the server locally
-    app.listen(port, () => {
-      console.log(`Server is running on port: ${port}`);
-    });
+    
   } catch (err) {
     console.error(err);
   }
