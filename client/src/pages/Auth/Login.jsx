@@ -23,18 +23,28 @@ const Login = () => {
   }
 
   const onSubmit = async (data) => {
-    setLoading(true)
-    try {
-      await login(data.email, data.password)
-      const res = await axiosPublic.get(`/users/me`, { headers: { authorization: `Bearer ${localStorage.getItem('access-token')}` } })
-      toast.success('Welcome back!')
-      navigate(getRedirect(res.data?.role))
-    } catch (err) {
-      toast.error('Invalid email or password')
-    } finally {
-      setLoading(false)
-    }
+  setLoading(true)
+  try {
+    const result = await login(data.email, data.password)
+    
+    
+    const tokenRes = await axiosPublic.post('/jwt', { 
+      email: result.user.email 
+    })
+    localStorage.setItem('access-token', tokenRes.data.token)
+
+    const res = await axiosPublic.get('/users/me', {
+      headers: { authorization: `Bearer ${tokenRes.data.token}` }
+    })
+
+    toast.success('Welcome back!')
+    navigate(getRedirect(res.data?.role))
+  } catch (err) {
+    toast.error('Invalid email or password')
+  } finally {
+    setLoading(false)
   }
+}
 
   const handleGoogle = async () => {
     try {
